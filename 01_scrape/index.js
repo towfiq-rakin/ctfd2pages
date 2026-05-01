@@ -379,7 +379,25 @@ class Ctfd2Pages {
   };
 
   pushpage(pageUrl) {
-    if (this.visited.has(pageUrl)) {
+    if (this.visited.has(pageUrl)) return;
+
+    const parsed = new url.URL(pageUrl);
+
+    // Skip paths that produce junk or sensitive files
+    const blockedPrefixes = [
+      '/admin',
+      '/cdn-cgi',
+      '/reset_password',
+      '/settings',
+      '/user',       // /user (own profile page, not /users)
+    ];
+    if (blockedPrefixes.some((p) => parsed.pathname === p || parsed.pathname.startsWith(p + '/'))) {
+      return;
+    }
+
+    // Skip URLs with query strings (e.g. users?page=1, brackets?type=users)
+    // These get saved as weird filenames - pagination is handled by stage 04
+    if (parsed.search) {
       return;
     }
 

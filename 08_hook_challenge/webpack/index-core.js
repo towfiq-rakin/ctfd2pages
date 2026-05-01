@@ -16,3 +16,8 @@ CTFd.api.get_hint = ((loadHint) =>
   }
 )(hooks.loadHint(CTFd.lib.markdown(),
     () => CTFd._internal.challenge.data.hints));
+
+CTFd.pages = CTFd.pages || {};
+CTFd.pages.challenge = CTFd.pages.challenge || {};
+CTFd.pages.challenge.displayChallenge = hooks.displayChallenge(
+    CTFd.lib.markdown());

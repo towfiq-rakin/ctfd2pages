@@ -17,3 +17,4 @@ const markdown = function(config) {
 CTFd.pages.challenge.submitChallenge = hooks.submitChallenge();
 CTFd.pages.challenge.loadHint = hooks.loadHint(markdown(),
     () => CTFd._internal.challenge.data.hints);
+CTFd.pages.challenge.displayChallenge = hooks.displayChallenge(markdown());
